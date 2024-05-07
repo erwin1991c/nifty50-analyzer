@@ -1,4 +1,4 @@
-const apiUrl = 'https://api.upstox.com/index/v1 /NIFTY_50';
+const apiUrl = 'https://account.upstox.com/';
 const apiKey = 'e934f443-251b-4aa8-a719-4e81a8ca0d99';
 const apiSecret = 'ksd69zdcef';
 
