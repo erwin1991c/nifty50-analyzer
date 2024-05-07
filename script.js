@@ -23,60 +23,40 @@ analyzeBtn.addEventListener('click', () => {
 	const ichimokuCloudChikouSpanValue = parseFloat(document.getElementById('ichimoku-cloud-chikou-span-value').value);
 	const ichimokuCloudLaggingSpanValue = parseFloat(document.getElementById('ichimoku-cloud-lagging-span-value').value);
 	const atrValue = parseFloat(document.getElementById('atr-value').value);
-	
-	const analysisResult = analyzeIndicators(
-		strikeRateValue,
-		bollingerBandsUpperValue,
-		bollingerBandsMiddleValue,
-		bollingerBandsLowerValue,
-		bollingerBandsSignalValue,
-		movingAverageValue,
-		rsiValue,
-		macdValue,
-		macdSignalValue,
-		macdHistogramValue,
-		stochasticValue,
-		stochasticSlowValue,
-		stochasticRsiValue,
-		stochasticRsiSlowValue,
-		ichimokuCloudTenkanSenValue,
-		ichimokuCloudKijunSenValue,
-		ichimokuCloudSenkouSpanAValue,
-		ichimokuCloudSenkouSpanBValue,
-		ichimokuCloudChikouSpanValue,
-		ichimokuCloudLaggingSpanValue,
-		atrValue
-	);
-	
-	analysisResultElement.innerText = analysisResult;
-});
 
-function analyzeIndicators(
-	strikeRateValue,
-	bollingerBandsUpperValue,
-	bollingerBandsMiddleValue,
-	bollingerBandsLowerValue,
-	bollingerBandsSignalValue,
-	movingAverageValue,
-	rsiValue,
-	macdValue,
-	macdSignalValue,
-	macdHistogramValue,
-	stochasticValue,
-	stochasticSlowValue,
-	stochasticRsiValue,
-	stochasticRsiSlowValue,
-	ichimokuCloudTenkanSenValue,
-	ichimokuCloudKijunSenValue,
-	ichimokuCloudSenkouSpanAValue,
-	ichimokuCloudSenkouSpanBValue,
-	ichimokuCloudChikouSpanValue,
-	ichimokuCloudLaggingSpanValue,
-	atrValue
-) {
+	if (bollingerBandsUpperValue < bollingerBandsMiddleValue || bollingerBandsMiddleValue < bollingerBandsLowerValue) {
+		alert('Error: Bollinger Band values must be in order (Upper > Middle > Lower).');
+		return;
+	}
+
+	if (macdValue > macdSignalValue) {
+		alert('Error: MACD value must be less than MACD Signal value.');
+		return;
+	}
+
+	if (stochasticValue > stochasticSlowValue) {
+		alert('Error: Stochastic value must be less than Stochastic Slow value.');
+		return;
+	}
+
+	if (stochasticRsiValue > stochasticRsiSlowValue) {
+		alert('Error: Stochastic RSI value must be less than Stochastic RSI Slow value.');
+		return;
+	}
+
+	if (ichimokuCloudTenkanSenValue > ichimokuCloudKijunSenValue) {
+		alert('Error: Ichimoku Cloud Tenkan Sen value must be less than Ichimoku Cloud Kijun Sen value.');
+		return;
+	}
+
+	if (ichimokuCloudSenkouSpanAValue > ichimokuCloudSenkouSpanBValue) {
+		alert('Error: Ichimoku Cloud Senkou Span A value must be less than Ichimoku Cloud Senkou Span B value.');
+		return;
+	}
+
 	let bullishCount = 0;
 	let bearishCount = 0;
-	
+
 	if (strikeRateValue > 50) bullishCount++;
 	if (bollingerBandsUpperValue > 20 && bollingerBandsLowerValue < 20) bullishCount++;
 	if (movingAverageValue > 50) bullishCount++;
@@ -86,17 +66,22 @@ function analyzeIndicators(
 	if (stochasticRsiValue < 20 && stochasticRsiSlowValue < 20) bullishCount++;
 	if (ichimokuCloudTenkanSenValue > 50 && ichimokuCloudKijunSenValue > 50) bullishCount++;
 	if (atrValue < 20) bullishCount++;
-	if (strikeRateValue < 50) bearishCount++;
-if (bollingerBandsUpperValue < 20 && bollingerBandsLowerValue > 20) bearishCount++;
-if (movingAverageValue < 50) bearishCount++;
-if (rsiValue > 70) bearishCount++;
-if (macdValue < 0 && macdSignalValue < 0) bearishCount++;
-if (stochasticValue > 80 && stochasticSlowValue > 80) bearishCount++;
-if (stochasticRsiValue > 80 && stochasticRsiSlowValue > 80) bearishCount++;
-if (ichimokuCloudTenkanSenValue < 50 && ichimokuCloudKijunSenValue < 50) bearishCount++;
-if (atrValue > 20) bearishCount++;
 
-if (bullishCount > bearishCount) return 'Bullish';
-if (bullishCount < bearishCount) return 'Bearish';
-return 'Neutral';
-}
+	if (strikeRateValue < 50) bearishCount++;
+	if (bollingerBandsUpperValue < 20 && bollingerBandsLowerValue > 20) bearishCount++;
+	if (movingAverageValue < 50) bearishCount++;
+	if (rsiValue > 70) bearishCount++;
+	if (macdValue < 0 && macdSignalValue < 0) bearishCount++;
+	if (stochasticValue > 80 && stochasticSlowValue > 80) bearishCount++;
+	if (stochasticRsiValue > 80 && stochasticRsiSlowValue > 80) bearishCount++;
+	if (ichimokuCloudTenkanSenValue < 50 && ichimokuCloudKijunSenValue < 50) bearishCount++;
+	if (atrValue > 20) bearishCount++;
+
+	if (bullishCount > bearishCount) {
+		analysisResultElement.innerText = 'Bullish';
+	} else if (bullishCount < bearishCount) {
+		analysisResultElement.innerText = 'Bearish';
+	} else {
+		analysisResultElement.innerText = 'Neutral';
+	}
+});
