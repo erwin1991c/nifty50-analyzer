@@ -1,27 +1,47 @@
-const apiUrl = 'https://api.upstox.com/v2/login/authorization/dialog';
-const apiKey = 'e934f443-251b-4aa8-a719-4e81a8ca0d99';
-const apiSecret = 'ksd69zdcef';
+const analyzeBtn = document.getElementById('analyze-btn');
+const indicatorSelect = document.getElementById('indicator-select');
+const indicatorValueInput = document.getElementById('indicator-value');
+const analysisResultElement = document.getElementById('analysis-result');
 
-fetch(apiUrl, {
-	headers: {
-		'Authorization': 'Bearer ' + apiKey,
-		'Secret': apiSecret
-	}
-})
-.then(response => response.json())
-.then(data => {
-	const nifty50Value = data.last;
-	const trend = getTrend(nifty50Value);
-	document.getElementById('nifty50-value').innerText = nifty50Value;
-	document.getElementById('trend').innerText = trend;
+analyzeBtn.addEventListener('click', () => {
+	const selectedIndicator = indicatorSelect.value;
+	const indicatorValue = parseFloat(indicatorValueInput.value);
+	const analysisResult = analyzeIndicator(selectedIndicator, indicatorValue);
+	analysisResultElement.innerText = analysisResult;
 });
 
-function getTrend(value) {
-	// Implement your logic to determine bearish or bullish trend based on the value
-	// For example:
-	if (value < 17000) {
-		return 'Bearish';
-	} else {
-		return 'Bullish';
+function analyzeIndicator(name, value) {
+	let analysisResult;
+	switch (name) {
+		case 'Strike Rate':
+			analysisResult = value > 50 ? 'Bullish' : 'Bearish';
+			break;
+		case 'Bollinger Bands':
+			analysisResult = value > 20 ? 'Bullish' : 'Bearish';
+			break;
+		case 'Moving Average':
+			analysisResult = value > 50 ? 'Bullish' : 'Bearish';
+			break;
+		case 'RSI':
+			analysisResult = value > 70 ? 'Overbought' : value < 30 ? 'Oversold' : 'Neutral';
+			break;
+		case 'MACD':
+			analysisResult = value > 0 ? 'Bullish' : 'Bearish';
+			break;
+		case 'Stochastic':
+			analysisResult = value > 80 ? 'Overbought' : value < 20 ? 'Oversold' : 'Neutral';
+			break;
+		case 'Stochastic RSI':
+			analysisResult = value > 80 ? 'Overbought' : value < 20 ? 'Oversold' : 'Neutral';
+			break;
+		case 'Ichimoku Cloud':
+			analysisResult = value > 50 ? 'Bullish' : 'Bearish';
+			break;
+		case 'ATR':
+			analysisResult = value > 20 ? 'High Volatility' : 'Low Volatility';
+			break;
+		default:
+			analysisResult = 'Unknown indicator';
 	}
+	return analysisResult;
 }
