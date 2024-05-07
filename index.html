@@ -8,9 +8,22 @@
 </head>
 <body>
 	<h1>Nifty50 Analyzer</h1>
-	<div id="data-container">
-		<p id="nifty50-value"></p>
-		<p id="trend"></p>
+	<div id="input-container">
+		<select id="indicator-select">
+			<option value="">Select Indicator</option>
+			<option value="Strike Rate">Strike Rate</option>
+			<option value="Bollinger Bands">Bollinger Bands</option>
+			<option value="Moving Average">Moving Average</option>
+			<option value="RSI">RSI</option>
+			<option value="MACD">MACD</option>
+			<option value="Stochastic">Stochastic</option>
+			<option value="Stochastic RSI">Stochastic RSI</option>
+			<option value="Ichimoku Cloud">Ichimoku Cloud</option>
+			<option value="ATR">ATR</option>
+		</select>
+		<input type="number" id="indicator-value" placeholder="Enter indicator value">
+		<button id="analyze-btn">Analyze</button>
+		<p id="analysis-result"></p>
 	</div>
 	<script src="script.js"></script>
 </body>
