@@ -3,16 +3,12 @@ body {
 	text-align: center;
 }
 
-#data-container {
+#input-container {
 	margin: 20px;
 }
 
-#nifty50-value {
+#analysis-result {
 	font-size: 24px;
 	font-weight: bold;
-}
-
-#trend {
-	font-size: 18px;
 	color: #666;
 }
