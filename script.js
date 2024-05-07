@@ -1,47 +1,67 @@
 const analyzeBtn = document.getElementById('analyze-btn');
-const indicatorSelect = document.getElementById('indicator-select');
-const indicatorValueInput = document.getElementById('indicator-value');
 const analysisResultElement = document.getElementById('analysis-result');
 
 analyzeBtn.addEventListener('click', () => {
-	const selectedIndicator = indicatorSelect.value;
-	const indicatorValue = parseFloat(indicatorValueInput.value);
-	const analysisResult = analyzeIndicator(selectedIndicator, indicatorValue);
+	const strikeRateValue = parseFloat(document.getElementById('strike-rate-value').value);
+	const bollingerBandsValue = parseFloat(document.getElementById('bollinger-bands-value').value);
+	const movingAverageValue = parseFloat(document.getElementById('moving-average-value').value);
+	const rsiValue = parseFloat(document.getElementById('rsi-value').value);
+	const macdValue = parseFloat(document.getElementById('macd-value').value);
+	const stochasticValue = parseFloat(document.getElementById('stochastic-value').value);
+	const stochasticRsiValue = parseFloat(document.getElementById('stochastic-rsi-value').value);
+	const ichimokuCloudValue = parseFloat(document.getElementById('ichimoku-cloud-value').value);
+	const atrValue = parseFloat(document.getElementById('atr-value').value);
+	
+	const analysisResult = analyzeIndicators(
+		strikeRateValue,
+		bollingerBandsValue,
+		movingAverageValue,
+		rsiValue,
+		macdValue,
+		stochasticValue,
+		stochasticRsiValue,
+		ichimokuCloudValue,
+		atrValue
+	);
+	
 	analysisResultElement.innerText = analysisResult;
 });
 
-function analyzeIndicator(name, value) {
-	let analysisResult;
-	switch (name) {
-		case 'Strike Rate':
-			analysisResult = value > 50 ? 'Bullish' : 'Bearish';
-			break;
-		case 'Bollinger Bands':
-			analysisResult = value > 20 ? 'Bullish' : 'Bearish';
-			break;
-		case 'Moving Average':
-			analysisResult = value > 50 ? 'Bullish' : 'Bearish';
-			break;
-		case 'RSI':
-			analysisResult = value > 70 ? 'Overbought' : value < 30 ? 'Oversold' : 'Neutral';
-			break;
-		case 'MACD':
-			analysisResult = value > 0 ? 'Bullish' : 'Bearish';
-			break;
-		case 'Stochastic':
-			analysisResult = value > 80 ? 'Overbought' : value < 20 ? 'Oversold' : 'Neutral';
-			break;
-		case 'Stochastic RSI':
-			analysisResult = value > 80 ? 'Overbought' : value < 20 ? 'Oversold' : 'Neutral';
-			break;
-		case 'Ichimoku Cloud':
-			analysisResult = value > 50 ? 'Bullish' : 'Bearish';
-			break;
-		case 'ATR':
-			analysisResult = value > 20 ? 'High Volatility' : 'Low Volatility';
-			break;
-		default:
-			analysisResult = 'Unknown indicator';
-	}
-	return analysisResult;
+function analyzeIndicators(
+	strikeRateValue,
+	bollingerBandsValue,
+	movingAverageValue,
+	rsiValue,
+	macdValue,
+	stochasticValue,
+	stochasticRsiValue,
+	ichimokuCloudValue,
+	atrValue
+) {
+	let bullishCount = 0;
+	let bearishCount = 0;
+	
+	if (strikeRateValue > 50) bullishCount++;
+	if (bollingerBandsValue > 20) bullishCount++;
+	if (movingAverageValue > 50) bullishCount++;
+	if (rsiValue < 30) bullishCount++;
+	if (macdValue > 0) bullishCount++;
+	if (stochasticValue < 20) bullishCount++;
+	if (stochasticRsiValue < 20) bullishCount++;
+	if (ichimokuCloudValue > 50) bullishCount++;
+	if (atrValue < 20) bullishCount++;
+	
+	if (strikeRateValue < 50) bearishCount++;
+	if (bollingerBandsValue < 20) bearishCount++;
+	if (movingAverageValue < 50) bearishCount++;
+	if (rsiValue > 70) bearishCount++;
+	if (macdValue < 0) bearishCount++;
+	if (stochasticValue > 80) bearishCount++;
+	if (stochasticRsiValue > 80) bearishCount++;
+	if (ichimokuCloudValue < 50) bearishCount++;
+	if (atrValue > 20) bearishCount++;
+	
+	if (bullishCount > bearishCount) return 'Bullish';
+	if (bullishCount < bearishCount) return 'Bearish';
+	return 'Neutral';
 }
