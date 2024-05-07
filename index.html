@@ -9,19 +9,48 @@
 <body>
 	<h1>Nifty50 Analyzer</h1>
 	<div id="input-container">
-		<select id="indicator-select">
-			<option value="">Select Indicator</option>
-			<option value="Strike Rate">Strike Rate</option>
-			<option value="Bollinger Bands">Bollinger Bands</option>
-			<option value="Moving Average">Moving Average</option>
-			<option value="RSI">RSI</option>
-			<option value="MACD">MACD</option>
-			<option value="Stochastic">Stochastic</option>
-			<option value="Stochastic RSI">Stochastic RSI</option>
-			<option value="Ichimoku Cloud">Ichimoku Cloud</option>
-			<option value="ATR">ATR</option>
-		</select>
-		<input type="number" id="indicator-value" placeholder="Enter indicator value">
+		<table>
+			<tr>
+				<th>Indicator</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Strike Rate</td>
+				<td><input type="number" id="strike-rate-value"></td>
+			</tr>
+			<tr>
+				<td>Bollinger Bands</td>
+				<td><input type="number" id="bollinger-bands-value"></td>
+			</tr>
+			<tr>
+				<td>Moving Average</td>
+				<td><input type="number" id="moving-average-value"></td>
+			</tr>
+			<tr>
+				<td>RSI</td>
+				<td><input type="number" id="rsi-value"></td>
+			</tr>
+			<tr>
+				<td>MACD</td>
+				<td><input type="number" id="macd-value"></td>
+			</tr>
+			<tr>
+				<td>Stochastic</td>
+				<td><input type="number" id="stochastic-value"></td>
+			</tr>
+			<tr>
+				<td>Stochastic RSI</td>
+				<td><input type="number" id="stochastic-rsi-value"></td>
+			</tr>
+			<tr>
+				<td>Ichimoku Cloud</td>
+				<td><input type="number" id="ichimoku-cloud-value"></td>
+			</tr>
+			<tr>
+				<td>ATR</td>
+				<td><input type="number" id="atr-value"></td>
+			</tr>
+		</table>
 		<button id="analyze-btn">Analyze</button>
 		<p id="analysis-result"></p>
 	</div>
