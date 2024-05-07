@@ -1,0 +1,18 @@
+body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+}
+
+#data-container {
+	margin: 20px;
+}
+
+#nifty50-value {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#trend {
+	font-size: 18px;
+	color: #666;
+}
